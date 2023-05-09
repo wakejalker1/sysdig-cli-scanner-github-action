@@ -28,8 +28,8 @@ runs:
         ${{ github.workspace }}/sysdig-inline-scanner \
           -a $SECURE_API_URL $IMAGE_NAME
       shell: bash
-        env:
-          SECURE_API_TOKEN: ${{ inputs.sysdig-api-key }}
-          SECURE_API_URL: ${{ inputs.sysdig-api-url }}
-          IMAGE_NAME: ${{ inputs.image-name }}
+      env:
+        SECURE_API_TOKEN: ${{ inputs.sysdig-api-key }}
+        SECURE_API_URL: ${{ inputs.sysdig-api-url }}
+        IMAGE_NAME: ${{ inputs.image-name }}
 
