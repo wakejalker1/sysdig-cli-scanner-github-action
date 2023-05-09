@@ -1,0 +1,29 @@
+name: 'Sysdig CLI Scanner Action'
+description: 'Run Sysdig CLI Scanner on your code'
+inputs:
+  sysdig-api-key:
+    description: 'Your Sysdig Secure API Key'
+    required: true
+  sysdig-api-url:
+    description: 'Your Sysdig Secure API URL'
+    required: true
+  image-name:
+    description: 'The name of the image to scan'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install Sysdig CLI Scanner
+      run: |
+        LATEST_VERSION=$(curl -L -s https://download.sysdig.com/scanning/sysdig-cli-scanner/latest_version.txt)
+        DOWNLOAD_URL="https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/${LATEST_VERSION}/linux/amd64/sysdig-cli-scanner"
+        curl -LO ${DOWNLOAD_URL}
+      shell: bash
+    - name: Run Sysdig CLI Scanner
+      run: |
+        export SECURE_API_TOKEN=${{ inputs.sysdig-api-key }}
+        ./sysdig-inline-scanner/sysdig-inline-scanner \
+          -a ${{ inputs.sysdig-api-url }} ${{ inputs.image-name }}
+      shell: bash
