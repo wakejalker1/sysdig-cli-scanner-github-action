@@ -33,4 +33,3 @@ runs:
         SECURE_API_TOKEN: ${{ inputs.sysdig-api-key }}
         SECURE_API_URL: ${{ inputs.sysdig-api-url }}
         IMAGE_NAME: ${{ inputs.image-name }}
-
