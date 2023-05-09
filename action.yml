@@ -24,6 +24,6 @@ runs:
     - name: Run Sysdig CLI Scanner
       run: |
         export SECURE_API_TOKEN=${{ inputs.sysdig-api-key }}
-        ./sysdig-inline-scanner/sysdig-inline-scanner \
+        ./sysdig-inline-scanner \
           -a ${{ inputs.sysdig-api-url }} ${{ inputs.image-name }}
       shell: bash
