@@ -21,6 +21,7 @@ runs:
         DOWNLOAD_URL="https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/${LATEST_VERSION}/linux/amd64/sysdig-cli-scanner"
         curl -L ${DOWNLOAD_URL} \
           -o ${{ github.workspace }}/sysdig-inline-scanner
+        chmod +x ${{ github.workspace }}/sysdig-inline-scanner
       shell: bash
     - name: Run Sysdig CLI Scanner
       run: |
