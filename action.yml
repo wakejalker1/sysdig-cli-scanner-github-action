@@ -25,6 +25,7 @@ runs:
       shell: bash
     - name: Run Sysdig CLI Scanner
       run: |
+        env
         ${{ github.workspace }}/sysdig-inline-scanner \
           -a $SECURE_API_URL $IMAGE_NAME
       shell: bash
