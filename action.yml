@@ -10,6 +10,9 @@ inputs:
   image-name:
     description: 'The name of the image to scan'
     required: true
+  sysdig-policy-name:
+    description: 'The policy name for Sysdig CLI Scanner'
+    required: false
 runs:
   using: 'composite'
   steps:
@@ -25,10 +28,15 @@ runs:
       shell: bash
     - name: Run Sysdig CLI Scanner
       run: |
+        POLICY_OPTION=""
+        if [ -n "${SYSDIG_POLICY_NAME}" ]; then
+          POLICY_OPTION="--policy ${SYSDIG_POLICY_NAME}"
+        fi
         ${{ github.workspace }}/sysdig-inline-scanner \
-          -a $SECURE_API_URL $IMAGE_NAME
+          -a $SECURE_API_URL $POLICY_OPTION $IMAGE_NAME
       shell: bash
       env:
         SECURE_API_TOKEN: ${{ inputs.sysdig-api-key }}
         SECURE_API_URL: ${{ inputs.sysdig-api-url }}
         IMAGE_NAME: ${{ inputs.image-name }}
+        SYSDIG_POLICY_NAME: ${{ inputs.sysdig-policy-name }}
